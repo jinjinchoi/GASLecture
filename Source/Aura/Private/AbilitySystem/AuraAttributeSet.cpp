@@ -6,10 +6,10 @@
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
-	InitHealth(100.f);
+	InitHealth(50.f);
 	InitMaxHealth(100.f);
 	InitMana(50.f);
-	InitMaxMana(120.f);
+	InitMaxMana(70.f);
 }
 
 // Unreal Engine에서 객체의 네트워크 복제(Replication) 설정을 정의하는 함수
