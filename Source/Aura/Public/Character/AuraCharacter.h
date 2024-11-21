@@ -21,6 +21,15 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 
+	/** Begin Combat Intercace */
+	virtual int32 GetPlayerLevel() override;
+	/** End Combat Intercace */
+
+
+protected:
+	virtual void InitAbilityActorInfo() override;
+
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -28,6 +37,5 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> FollowCamera;
 
-	void InitAbilityActorInfo();
 	
 };
