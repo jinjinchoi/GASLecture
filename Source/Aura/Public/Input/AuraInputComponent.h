@@ -32,7 +32,6 @@ void UAuraInputComponent::BindAbilityActions(const UAuraInputConfig* InputConfig
 		{
 			if (PressedFunc)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("PressedFunc InputTag: %s"), *Action.Inputag.ToString());
 				BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressedFunc, Action.Inputag);
 			}
 
@@ -43,7 +42,7 @@ void UAuraInputComponent::BindAbilityActions(const UAuraInputConfig* InputConfig
 			
 			if (HeldFunc)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Binding HeldFunc with InputTag: %s"), *Action.Inputag.ToString());
+				
 				BindAction(Action.InputAction, ETriggerEvent::Triggered, Object, HeldFunc, Action.Inputag);
 			}
 		}
