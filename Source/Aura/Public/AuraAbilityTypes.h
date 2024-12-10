@@ -49,7 +49,7 @@ struct TStructOpsTypeTraits<FAuraGameplayEffectContext> : TStructOpsTypeTraitsBa
 {
 	enum
 	{
-		WithNetSerialize = true,
+		WithNetSerializer = true,
 		WithCopy = true
 	};
 };
