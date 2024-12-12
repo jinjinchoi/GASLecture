@@ -6,6 +6,9 @@
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
+class UCapsuleComponent;
+class UCameraComponent;
+class USpringArmComponent;
 class UDamageTextComponent;
 class UAuraInputConfig;
 class UInputMappingContext;
@@ -15,6 +18,25 @@ struct FGameplayTag;
 class IEnemyInterface;
 class UAuraAbilitySystemComponent;
 class USplineComponent;
+
+USTRUCT(BlueprintType)
+struct FCameraOccludedActor
+{
+	GENERATED_BODY()
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	const AActor* Actor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* StaticMesh;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TArray<TObjectPtr<UMaterialInterface>> Materials;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool IsOccluded;
+	
+};
 
 /**
  * 
@@ -32,10 +54,38 @@ public:
 	void ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit);
 	
 protected:
+	
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+	
+	/** 카메라 페이드 */
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Camera Occlusion|Occlusion", meta=(ClampMin="0.1", ClampMax="10.0"))
+	float CapsulePercentageForTrace;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Camera Occlusion|Materials")
+	TObjectPtr<UMaterialInterface> FadeMaterial;
+
+	UPROPERTY(BlueprintReadWrite, Category="Camera Occlusion|Components")
+	TObjectPtr<USpringArmComponent> ActiveSpringArm;
+
+	UPROPERTY(BlueprintReadWrite, Category="Camera Occlusion|Components")
+	TObjectPtr<UCameraComponent> ActiveCamera;
+
+	UPROPERTY(BlueprintReadWrite, Category="Camera Occlusion|Components")
+	TObjectPtr<UCapsuleComponent> ActiveCapsuleComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Camera Occlusion")
+	bool IsOcclusionEnabled;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Camera Occlusion|Occlusion")
+	bool DebugLineTraces;
+
+	
+
 private:
+	
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
 	
@@ -84,6 +134,25 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;
+
+	/** 카메라 페이드 */
+	
+	TMap<const AActor*, FCameraOccludedActor> OccluededActors;
+
+	bool HideOccludedActor (const AActor* Actor);
+	bool OnHideOccludedActor (const FCameraOccludedActor& OccludedActor) const;
+	void ShowOccludedActor(FCameraOccludedActor& OccludedActor);
+	bool OnShowOccludedActor (const FCameraOccludedActor& OccludedActor) const;
+	void ForceShowOccludedActor();
+
+	FORCEINLINE bool ShouldCheckCameraOcclusion() const
+	{
+		return IsOcclusionEnabled && FadeMaterial && ActiveCamera && ActiveCapsuleComponent;
+	}
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void SyncOccludedActors();
 };
 
 
