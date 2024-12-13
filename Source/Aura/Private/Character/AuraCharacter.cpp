@@ -31,6 +31,8 @@ AAuraCharacter::AAuraCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>("PollowCamera");
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	CharacterClass = ECharacterClass::Elementalist;
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)

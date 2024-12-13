@@ -204,6 +204,20 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Abilities.Summon"),
 		FString("소환 능력 태그")
 	);
+
+	GameplayTags.Abilities_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Fire.FireBolt"),
+	FString("파이어볼 능력 태그")
+	);
+
+	/**
+	* Cool Down
+	*/
+	
+	GameplayTags.Cooldown_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Cooldown.Fire.FireBolt"),
+	FString("파이어볼 쿨타임")
+	);
 	
 	/**
 	 * Combat Sockets

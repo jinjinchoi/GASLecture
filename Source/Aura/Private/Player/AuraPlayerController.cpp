@@ -298,8 +298,8 @@ bool AAuraPlayerController::HideOccludedActor(const AActor* Actor)
 		if (DebugLineTraces)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Actor %s was already occluded. Ignoring."),*Actor->GetName());
-			return false;
 		}
+			return false;
 	}
 
 	if (ExistingOccludedActor && IsValid(ExistingOccludedActor->Actor))
