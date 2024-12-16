@@ -119,6 +119,18 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("키보드 4")
 	);
 
+	GameplayTags.InputTag_Passive_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.Passive.1"),
+		FString("Input Passive 1")
+	);
+	
+	GameplayTags.InputTag_Passive_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.Passive.2"),
+		FString("Input Passive 2")
+	);
+
+	
+
 	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Damage"),
 		FString("Damage")
@@ -174,6 +186,15 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	);
 
 	/**
+	* Meta Attributes
+	*/
+
+	GameplayTags.Attributes_Meta_IncomingXP = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Meta.IncomingXP"),
+	FString("Incoming XP Meta Attribute")
+	);
+
+	/**
 	 * Map of Damage Types to Resistances
 	 */
 	
@@ -181,6 +202,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.DamageTypesToResistance.Add(GameplayTags.Damage_Lightning, GameplayTags.Attributes_Resistance_Lightning);
 	GameplayTags.DamageTypesToResistance.Add(GameplayTags.Damage_Arcane, GameplayTags.Attributes_Resistance_Arcane);
 	GameplayTags.DamageTypesToResistance.Add(GameplayTags.Damage_Physical, GameplayTags.Attributes_Resistance_Physical);
+
 	
 	/**
 	 * Effects
@@ -191,9 +213,14 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("히트 반응")
 	);
 
+	
 	/**
 	 * Abilities
 	 */
+	GameplayTags.Abilities_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.None"),
+		FString("No Ability")
+	);
 	
 	GameplayTags.Abilities_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Attack"),
@@ -210,6 +237,52 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	FString("파이어볼 능력 태그")
 	);
 
+	GameplayTags.Abilities_Lightning_Electrocute = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Lightning.Electrocute"),
+	FString("감전 능력 태그")
+	);
+
+	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.HitReact"),
+	FString("HitReact Ability")
+	);
+
+	GameplayTags.Abilities_Status_Eligible = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Eligible"),
+	FString("Eligible Status")
+	);
+
+	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Equipped"),
+	FString("Equipped Status")
+	);
+
+	GameplayTags.Abilities_Status_Locked = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Locked"),
+	FString("Locked Status")
+	);
+
+	GameplayTags.Abilities_Status_UnLocked = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.UnLocked"),
+	FString("UnLocked Status")
+	);
+
+	GameplayTags.Abilities_Type_None= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Type.None"),
+	FString("None Type")
+	);
+
+	GameplayTags.Abilities_Type_Offensive= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Type.Offensive"),
+	FString("Offensive Type")
+	);
+
+	GameplayTags.Abilities_Type_Passive= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Type.Passive"),
+	FString("Passive Type")
+	);
+
+	
 	/**
 	* Cool Down
 	*/
@@ -218,6 +291,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	FName("Cooldown.Fire.FireBolt"),
 	FString("파이어볼 쿨타임")
 	);
+
 	
 	/**
 	 * Combat Sockets
