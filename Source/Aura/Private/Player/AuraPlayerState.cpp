@@ -54,7 +54,7 @@ void AAuraPlayerState::AddToAttributePoints(int32 InPoints)
 void AAuraPlayerState::AddToSpellPoints(int32 InPoints)
 {
 	SpellPoints += InPoints;
-	OnAttributePointsChangedDelegate.Broadcast(SpellPoints);
+	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
 }
 
 void AAuraPlayerState::SetXP(int32 InXP)

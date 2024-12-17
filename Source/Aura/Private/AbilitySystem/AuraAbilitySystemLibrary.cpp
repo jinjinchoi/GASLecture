@@ -4,6 +4,10 @@
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 
 #include "AuraAbilityTypes.h"
+#include "AuraGameplayTags.h"
+#include "AbilitySystem/Abilities/AuraDamageGameplayAbility.h"
+#include "AbilitySystem/Abilities/AuraGameplayAbility.h"
+#include "AbilitySystem/Data/AbilityInfo.h"
 #include "Game/AuraGameModeBase.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -204,5 +208,48 @@ bool UAuraAbilitySystemLibrary::IsNotFriend(AActor* FirsActor, AActor* SecondAct
 	const bool bBothAreEnemies = FirsActor->ActorHasTag(FName("Enemy")) && SecondActor->ActorHasTag(FName("Enemy"));
 	const bool bFriends = bBothArePlayers || bBothAreEnemies;;
 	return !bFriends;
+}
+
+FString UAuraAbilitySystemLibrary::GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel)
+{
+	FAuraAbilityInfo Info = GetAbilityInfo(WorldContextObject)->FindAbilityInfoForTag(AbilityTag);
+	UAuraGameplayAbility* Ability = Cast<UAuraGameplayAbility>(Info.Ability.GetDefaultObject());
+	FormatAbilityDescriptionAtLevel(Ability, Info.DamageTypeTag, InLevel, Info.Description);
+
+	return FString::Printf(
+		TEXT(
+		// title	
+		"<Title>%s </>\n"
+		// Level
+		"<Small>Level: </><Level>%d</>\n"
+		
+		// Body
+		"\n"
+		"%s\n"
+		"\n"
+		
+		//ManaCost
+		"<Small>Mana:</> <ManaCost>%.1f</>\n"
+		
+		//CoolDown
+		"<Small>Cooldown:</><Cooldown> %.1f</>\n"
+		),
+		*Info.AbilityName,
+		InLevel,
+		*Info.Description.ToString(),
+		Ability->GetManaCost(InLevel),
+		Ability->GetCoolDown(InLevel)
+	);
+	
+	
+}
+
+void UAuraAbilitySystemLibrary::FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, const FGameplayTag& DamageTypeTag, int32 InLevel, FText& OutDescription)
+{
+	OutDescription = FText::FormatNamed(
+		OutDescription,
+		FString("_Damage"),
+		Ability->GetDamage(InLevel, DamageTypeTag)
+	);
 }
 

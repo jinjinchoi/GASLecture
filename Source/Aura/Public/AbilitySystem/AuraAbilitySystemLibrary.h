@@ -7,6 +7,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "AuraAbilitySystemLibrary.generated.h"
 
+struct FGameplayTag;
 class UAbilityInfo;
 class AAuraHUD;
 struct FGameplayEffectContextHandle;
@@ -15,6 +16,7 @@ class USpellMenuWidgetController;
 class UAbilitySystemComponent;
 class UAttributeMenuWidgetController;
 class UOverlayWidgetController;
+class UAuraGameplayAbility;
 /**
  * 
  */
@@ -65,6 +67,10 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static bool IsNotFriend(AActor* FirsActor, AActor* SecondActor);
+
+	static FString GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel);
+
+	static void FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, const FGameplayTag& DamageTypeTag, int32 InLevel, FText& OutDescription);
 
 	static int32 GetXPRewardForClassAndLevel(const UObject* WorldContextObject, ECharacterClass CharacterClass, int32 CharacterLevel);
 };
