@@ -210,11 +210,11 @@ bool UAuraAbilitySystemLibrary::IsNotFriend(AActor* FirsActor, AActor* SecondAct
 	return !bFriends;
 }
 
-FString UAuraAbilitySystemLibrary::GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel)
+FString UAuraAbilitySystemLibrary::GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel, const FAuraAbilityInfo& AbilityInfo)
 {
-	FAuraAbilityInfo Info = GetAbilityInfo(WorldContextObject)->FindAbilityInfoForTag(AbilityTag);
+	FAuraAbilityInfo Info = AbilityInfo;
 	UAuraGameplayAbility* Ability = Cast<UAuraGameplayAbility>(Info.Ability.GetDefaultObject());
-	FormatAbilityDescriptionAtLevel(Ability, Info.DamageTypeTag, InLevel, Info.Description);
+	FormatAbilityDescriptionAtLevel(Ability, InLevel, Info.Description);
 
 	return FString::Printf(
 		TEXT(
@@ -244,12 +244,12 @@ FString UAuraAbilitySystemLibrary::GetAbilityDescription(const UObject* WorldCon
 	
 }
 
-void UAuraAbilitySystemLibrary::FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, const FGameplayTag& DamageTypeTag, int32 InLevel, FText& OutDescription)
+void UAuraAbilitySystemLibrary::FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, int32 InLevel, FText& OutDescription)
 {
 	OutDescription = FText::FormatNamed(
 		OutDescription,
 		FString("_Damage"),
-		Ability->GetDamage(InLevel, DamageTypeTag)
+		Ability->GetDamage(InLevel)
 	);
 }
 

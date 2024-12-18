@@ -24,7 +24,7 @@ public:
 
 	float GetManaCost(float InLevel = 1.f) const;
 	float GetCoolDown(float InLevel = 1.f) const;
-	virtual int32 GetDamage(float InLevel, const FGameplayTag& DamageTypeTag) const;
+	virtual int32 GetDamage(float InLevel) const;
 };
 
 

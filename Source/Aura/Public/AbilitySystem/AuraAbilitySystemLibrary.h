@@ -17,6 +17,7 @@ class UAbilitySystemComponent;
 class UAttributeMenuWidgetController;
 class UOverlayWidgetController;
 class UAuraGameplayAbility;
+struct FAuraAbilityInfo;
 /**
  * 
  */
@@ -68,9 +69,9 @@ public:
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static bool IsNotFriend(AActor* FirsActor, AActor* SecondActor);
 
-	static FString GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel);
+	static FString GetAbilityDescription(const UObject* WorldContextObject, const FGameplayTag& AbilityTag, int32 InLevel, const FAuraAbilityInfo& AbilityInfo);
 
-	static void FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, const FGameplayTag& DamageTypeTag, int32 InLevel, FText& OutDescription);
+	static void FormatAbilityDescriptionAtLevel(UAuraGameplayAbility* Ability, int32 InLevel, FText& OutDescription);
 
 	static int32 GetXPRewardForClassAndLevel(const UObject* WorldContextObject, ECharacterClass CharacterClass, int32 CharacterLevel);
 };

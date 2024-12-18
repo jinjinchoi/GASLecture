@@ -47,7 +47,7 @@ float UAuraGameplayAbility::GetCoolDown(float InLevel) const
 	return CoolDown;
 }
 
-int32 UAuraGameplayAbility::GetDamage(float InLevel, const FGameplayTag& DamageTypeTag) const
+int32 UAuraGameplayAbility::GetDamage(float InLevel) const
 {
 	return 0;
 }

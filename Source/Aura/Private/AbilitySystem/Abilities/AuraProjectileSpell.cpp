@@ -11,29 +11,6 @@
 #include "Aura/Public/AuraGameplayTags.h"
 
 
-FString UAuraProjectileSpell::GetDescription(int32 Level, const FGameplayTag& AbilityTag)
-{
-	AActor* AvatarActor = GetAvatarActorFromActorInfo();
-	
-	const int32 Damage = DamageTypes[FAuraGameplayTags::Get().Damage_Fire].GetValueAtLevel(Level);
-	if (Level == 1)
-	{
-		return UAuraAbilitySystemLibrary::GetAbilityDescription(GetWorld(), AbilityTag, Level);
-	}
-	else
-	{
-		return FString::Printf(TEXT("<Title>FIRE BOLT</>\n\n Launched %d bolt of fire, exploding on impact and dealing <Damage>%d</> fire damage with a chance to burn\n\n <Small>Level: </><Level>%d </>"), FMath::Min(Level, NumProjectiles), Damage, Level);
-
-	}
-}
-
-FString UAuraProjectileSpell::GetNextLevelDescription(int32 Level)
-{
-	const int32 Damage = DamageTypes[FAuraGameplayTags::Get().Damage_Fire].GetValueAtLevel(Level);
-	return FString::Printf(TEXT("<Title>NEXT LEVEL: </>\n\n Launched %d bolt of fire, exploding on impact and dealing <Damage>%d</> fire damage with a chance to burn\n\n <Small>Level: </><Level>%d </>"), FMath::Min(Level, NumProjectiles), Damage, Level);
-}
-
-
 void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                            const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
                                            const FGameplayEventData* TriggerEventData)
@@ -78,11 +55,8 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 
 	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
 
-	for (auto& Pair : DamageTypes)
-	{
-		const float ScaledDamage = Pair.Value.GetValueAtLevel(GetAbilityLevel());
-		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, Pair.Key, ScaledDamage);
-	}
+	const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, DamageType, ScaledDamage);
 	
 	Projectile->DamageEffectSpecHandle = SpecHandle;
 	
