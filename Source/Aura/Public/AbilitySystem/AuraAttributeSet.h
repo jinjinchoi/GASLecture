@@ -180,6 +180,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Meta Attributes")
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
+
+	UPROPERTY(BlueprintReadOnly, Category="Meta Attributes")
+	FGameplayAttributeData IncomingDebuffDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDebuffDamage);
 	
 	UPROPERTY(BlueprintReadOnly, Category="Meta Attributes")
 	FGameplayAttributeData IncomingXP;
@@ -248,6 +252,10 @@ public:
 
 
 private:
+	void HandleIncomingDamage(const FEffectProperties& Props);
+	void HandleIncomingDebuffDamage(const FEffectProperties& Props);
+	void HandleIncomingXP(const FEffectProperties& Props);
+	void Debuff(const FEffectProperties& Props);
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 	void ShowFloatingText(const FEffectProperties& Props, float Damage, bool bBlockHit, bool bCriticalHit) const;
 	void SendXPEvent(const FEffectProperties& Props);
@@ -255,6 +263,7 @@ private:
 	bool bTopOffMana = false;
 	
 };
+
 
 
 
