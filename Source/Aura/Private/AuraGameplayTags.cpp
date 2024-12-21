@@ -295,10 +295,33 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	FString("감전 능력 태그")
 	);
 
+	/**
+	 * Passive Spells
+	 */
+
+	GameplayTags.Abilities_Passive_LifeSiphon= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Passive.LifeSiphon"),
+	FString("LifeSiphon")
+	);
+	
+	GameplayTags.Abilities_Passive_ManaSiphon= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Passive.ManaSiphon"),
+	FString("ManaSiphon")
+	);
+
+	GameplayTags.Abilities_Passive_HaloOfProtection= UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Passive.HaloOfProtection"),
+	FString("HaloOfProtection")
+	);
+
 	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 	FName("Abilities.HitReact"),
 	FString("HitReact Ability")
 	);
+
+	/**
+	 *  Spell Menu Status
+	 */
 
 	GameplayTags.Abilities_Status_Eligible = UGameplayTagsManager::Get().AddNativeGameplayTag(
 	FName("Abilities.Status.Eligible"),
@@ -393,5 +416,29 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Montage.Attack.4"),
 		FString("Attack_4")
 	);
+
+
+	/**
+	 * Player Tag
+	 */
 	
+	GameplayTags.Player_Block_CursorTrace = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Player.Block.CursorTrace"),
+		FString("Block Cursor Trace")
+	);
+
+	GameplayTags.Player_Block_InputHeld = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Player.Block.InputHeld"),
+		FString("Block InputHeld")
+	);
+
+	GameplayTags.Player_Block_InputPressed = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Player.Block.InputPressed"),
+		FString("Block InputPressed")
+	);
+
+	GameplayTags.Player_Block_InputReleased = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Player.Block.InputReleased"),
+		FString("Block InputReleased")
+	);
 }

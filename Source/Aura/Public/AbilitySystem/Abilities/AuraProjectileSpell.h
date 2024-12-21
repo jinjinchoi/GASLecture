@@ -27,7 +27,22 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Projcetile")
 	void SpawnProjectile(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag, bool bOverridePitch = false, float PitchOverride = 0.f);
 
+	UFUNCTION(BlueprintCallable, Category="Projcetile")
+	void SpawnProjectiles(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag, bool bOverridePitch = false, float PitchOverride = 0.f, AActor* HomingTarget = nullptr);
+
 	UPROPERTY(EditDefaultsOnly)
 	int32 NumProjectiles = 5;
+
+	UPROPERTY(EditDefaultsOnly, Category="FireBolt")
+	float ProjectileSpread = 90.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category="FireBolt")
+	float HomingAccelerationMin = 1600.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category="FireBolt")
+	float HomingAccelerationMax = 3200.f;
+
+	UPROPERTY(EditDefaultsOnly, Category="FireBolt")
+	bool bLaunchHomingProjectile = true;
 	
 };

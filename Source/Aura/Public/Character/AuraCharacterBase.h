@@ -23,6 +23,7 @@ class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInte
 
 public:
 	AAuraCharacterBase();
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	FORCEINLINE UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 	
@@ -39,7 +40,10 @@ public:
 	virtual void IncrementMinionCount_Implementation(int32 Amount) override;
 	virtual ECharacterClass GetCharacterClass_Implementation() override;
 	virtual FOnASCRegistered GetOnASCRegisteredDelegate() override;
-	virtual FOnDeath* GetOnDeathDelegate() override;
+	virtual FOnDeath& GetOnDeathDelegate() override;
+	virtual USkeletalMeshComponent* GetWeapon_Implementation() override;
+	virtual void SetIsBeingShocked_Implementation(bool bInShockLoop) override;
+	virtual bool IsBeingShocked_Implementation() const override;
 	/** End Combat Interface */
 
 	FOnASCRegistered OnASCRegistered;
@@ -51,8 +55,26 @@ public:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	TArray<FTaggedMontage> AttackMontage;
 
+	UPROPERTY(ReplicatedUsing=OnRep_Stunned, BlueprintReadOnly)
+	bool bIsStunned = false;
+
+	UPROPERTY(ReplicatedUsing=OnRep_Burned, BlueprintReadOnly)
+	bool bIsBurned = false;
+
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	bool bIsBeingShocked = false;
+
+	UFUNCTION()
+	virtual void OnRep_Stunned();
+
+	UFUNCTION()
+	virtual void OnRep_Burned();
+
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	float BaseWalkSpeed = 600.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
@@ -91,6 +113,8 @@ protected:
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	virtual void InitializeDefaultAttributes() const;
 	void AddCharacterAbilities();
+	virtual void StunTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
+
 
 	/** Dissolve Effects */
 
@@ -123,6 +147,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UDebuffNiagaraComponent> BurnDebuffComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDebuffNiagaraComponent> StunDebuffComponent;
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")

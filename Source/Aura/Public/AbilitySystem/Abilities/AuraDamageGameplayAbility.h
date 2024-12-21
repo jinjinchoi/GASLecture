@@ -21,7 +21,11 @@ public:
 	void CauseDamage(AActor* TargetActor);
 	virtual int32 GetDamage(float InLevel) const override;
 
+	UFUNCTION(BlueprintPure)
 	FDamageEffectParams MakeDamageEffectParamsFromClassDefaults(AActor* TargetActor = nullptr) const;
+
+	UFUNCTION(BlueprintPure)
+	float GetDamageAtLevel() const;
 
 
 protected:
@@ -47,7 +51,13 @@ protected:
 	float DebuffDuration = 5.f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
-	float DeathImpulseMagnitude = 60.f;
+	float DeathImpulseMagnitude = 1000.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
+	float KnockbackForceMagnitude = 1000.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
+	float KnockbackChance = 0.f;
 	
 	
 };
