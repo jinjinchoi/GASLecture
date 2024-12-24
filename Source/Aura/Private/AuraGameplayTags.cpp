@@ -285,15 +285,30 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("소환 능력 태그")
 	);
 
+	/**
+	 * Offensive Spells
+	 */
+
 	GameplayTags.Abilities_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
 	FName("Abilities.Fire.FireBolt"),
 	FString("파이어볼 능력 태그")
+	);
+
+	GameplayTags.Abilities_Fire_FireBlast = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Fire.FireBlast"),
+	FString("FireBlast 능력 태그")
 	);
 
 	GameplayTags.Abilities_Lightning_Electrocute = UGameplayTagsManager::Get().AddNativeGameplayTag(
 	FName("Abilities.Lightning.Electrocute"),
 	FString("감전 능력 태그")
 	);
+
+	GameplayTags.Abilities_Arcane_ArcaneShards = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Arcane.ArcaneShards"),
+	FString("아케인 능력 태그")
+	);
+
 
 	/**
 	 * Passive Spells
@@ -440,5 +455,13 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Player_Block_InputReleased = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Player.Block.InputReleased"),
 		FString("Block InputReleased")
+	);
+
+	/**
+	 * GameplayCue
+	 */
+	GameplayTags.GameplayCue_FireBlast = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("GameplayCue.FireBlast"),
+		FString("cue")
 	);
 }
