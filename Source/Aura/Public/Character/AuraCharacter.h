@@ -37,6 +37,7 @@ public:
 	virtual void AddToAttributePoints_Implementation(int32 InAttributePoints) override;
 	virtual void ShowMagicCircle_Implementation(UMaterialInterface* DecalMaterial = nullptr) override;
 	virtual void HideMagicCircle_Implementation() override;
+	virtual void SaveProgress_Implementation(const FName& CheckPointTag) override;
 	/** End Player Interface */
 
 	/** Begin Combat Intercace */
@@ -48,6 +49,8 @@ public:
 
 	virtual void OnRep_Stunned() override;
 	virtual void OnRep_Burned() override;
+
+	void LoadProgress();
 	
 protected:
 	virtual void InitAbilityActorInfo() override;
